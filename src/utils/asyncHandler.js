@@ -9,7 +9,7 @@ const asyncHandler = (requestHandler) => {
 
 export {asyncHandler}
 
-
+//this is when using async and await and the top one for the promises
 // const asyncHandler = (fn) => async (req, res, next) => {
 //     try{
 //         await fn(req, res, next)
