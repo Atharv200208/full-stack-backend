@@ -17,7 +17,9 @@ class ApiError extends Error {
             this.stack = stack
         }
         else{
-            this.captureStackTrace(this, this.constructor)//It tells the engine to capture the current stack trace for a given Error object, optionally excluding certain function calls from appearing in that trace.
+            Error.captureStackTrace(this, this.constructor)//It tells the engine to capture the current stack trace for a given Error object, optionally excluding certain function calls from appearing in that trace.
         }
     }
 }
+
+export {ApiError}
