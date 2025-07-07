@@ -46,7 +46,7 @@ const registerUser = asyncHandler(async (req, res, next) => {
         if (existingUser) {
             throw new ApiError(409, "User already exists")
         }
-        console.log(req.files);
+        // console.log(req.files);
         
         const avatarLocalPath = req.files?.avatar[0]?.path;
         //const coverImageLocalPath = req.files?.coverImage[0]?.path;
@@ -83,7 +83,9 @@ const registerUser = asyncHandler(async (req, res, next) => {
             throw new ApiError(500, "Something went wrong while creating the user")
         }
 
-        return res.status(201).json(
+        return res
+        .status(201)
+        .json(
             new ApiResponse(200, createdUser, "User has been registered successfully")
         )
 })
