@@ -183,7 +183,6 @@ const deletePlayList = asyncHandler(async(req, res) => {
         throw new ApiError(404, "Playlist does not exist")
     }
  
-
     await PlayList.deleteOne(
         { 
             _id: playListId, 

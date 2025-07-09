@@ -270,7 +270,7 @@ const updateUserAvatar = asyncHandler(async(req, res) => {
 
     const avatar = await uploadOnCloudinary(avatarLocalPath)
 
-    if (!avatar.urk) {
+    if (!avatar.url) {
         throw new ApiError(400, "Error while uploading avatar image")
     }
 
@@ -448,8 +448,6 @@ const getWatchHistory = asyncHandler(async(req, res) => {
         )
     )
 })
-
-
 
 export {registerUser, 
     loginUser, 
