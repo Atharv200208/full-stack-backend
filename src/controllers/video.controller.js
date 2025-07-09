@@ -129,7 +129,7 @@ const updateVideo = asyncHandler(async(req, res) => {
     }
     
     let thumbnailUrl = video.thumbnail
-    
+
     const updatedVideo = await Video.findByIdAndUpdate(
         videoId,
         {
@@ -222,6 +222,7 @@ const togglePublishStatus = asyncHandler(async(req,res) => {
         )
     )
 })
+
 export { 
     getAllVideos,
     publishAVideo,
