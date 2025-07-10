@@ -101,7 +101,29 @@ const publishAVideo = asyncHandler(async(req, res) => {
 
 })
 
-//getVideoById is remaining complete that
+const getVideoById = asyncHandler(async(req, res) => {
+    const { videoId } = req.params
+
+    if(!mongoose.Types.ObjectId.isValid(videoId)){
+        throw new ApiError(404, "Invalid Video Id")
+    }
+
+    const video = await Video.findById(videoId).populate("owner","fullName username avatar").lean()
+
+    if(!video){
+        throw new ApiError(404, "Video not found")
+    }
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            video, 
+            "The video was fetched successfully"
+        )
+    )
+})
 
 const updateVideo = asyncHandler(async(req, res) => {
     const { videoId } = req.params
