@@ -204,9 +204,9 @@ const updatePlayList = asyncHandler(async(req, res) => {
         throw new ApiError(400, "Invalid Playlist ID");
     }
 
-    if(!playListId){
-        throw new ApiError(400, "Playlist ID does not exist")
-    }
+    // if(!playListId){
+    //     throw new ApiError(400, "Playlist ID does not exist")
+    // }
 
     const playList = await PlayList.findOne({
         _id: playListId,
