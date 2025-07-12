@@ -12,7 +12,7 @@ const toggleSubscription = asyncHandler(async(req, res) => {
     }
 
     if(String(req.user._id) === channelId){
-        throw new ApiError(400,"You cannot subscribe to your ow channel")
+        throw new ApiError(400,"You cannot subscribe to your own channel")
     }
 
     const existingSubscription = await Subscription.findOne({
