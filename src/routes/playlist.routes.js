@@ -1,6 +1,13 @@
 import { Router } from "express";
-import { verifyJWT } from "../middlewares/auth.middleware";
-import { addVideoToPlayList, createPlayList, deletePlayList, getPlaylistById, getUserPlayLists, removeVideoFromPlayList, updatePlayList } from "../controllers/playList.controller";
+import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { addVideoToPlayList, 
+    createPlayList, 
+    deletePlayList, 
+    getPlaylistById, 
+    getUserPlayLists, 
+    removeVideoFromPlayList, 
+    updatePlayList
+ } from "../controllers/playList.controller.js";
 
 const router = Router()
 router.use(verifyJWT)// will apply the verifyJWT to every route

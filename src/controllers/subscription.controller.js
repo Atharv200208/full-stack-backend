@@ -3,7 +3,6 @@ import asyncHandler from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { Subscription  } from "../models/subscription.model.js"
 import { ApiResponse } from "../utils/ApiResponse.js";
-import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 const toggleSubscription = asyncHandler(async(req, res) => {
     const { channelId } = req.params
@@ -47,16 +46,52 @@ const toggleSubscription = asyncHandler(async(req, res) => {
 })
 
 const getUserChannelSubscriber = asyncHandler(async(req, res) => {
-        const { channelId } = req.params
+    const { channelId } = req.params
         
-        if(!channelId){
-            throw new ApiError(404, "Channel ID not found")
-        }
+    if (!mongoose.Types.ObjectId.isValid(channelId)) {
+        throw new ApiError(400, "Invalid video ID");
+    }
 
+    const subscriberCount = await Subscription.countDocuments({
+        channel: channelId, 
+    }) 
+
+    return res 
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            { subscriberCount },
+            "Subscriber Count fetched Successfully"
+        )
+    )
 
 } )
+
+const getSubscribedChannels = asyncHandler(async(req, res) => {
+    const { subscriberId } = req.params
+
+        if (!mongoose.Types.ObjectId.isValid(subscriberId)) {
+        throw new ApiError(400, "Invalid video ID");
+    }
+
+      const subscribedCount = await Subscription.countDocuments({
+        subscriber: subscriberId, 
+    }) 
+
+    return res 
+    .status(200)
+    .json(
+        new ApiResponse(
+            200, 
+            { subscribedCount },
+            "The subscribed count was fetched successfully"
+        )
+    )
+})
 
 export {
     toggleSubscription,
     getUserChannelSubscriber,
+    getSubscribedChannels,
 }
