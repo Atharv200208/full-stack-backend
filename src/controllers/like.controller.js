@@ -120,11 +120,56 @@ const toggleCommentLike = asyncHandler(async(req, res) => {
 })
 
 const getLikedVideos  = asyncHandler(async(req, res) =>{
-    const  
+    const pageNmber = parseInt(req.query.page) || 1
+    const limitNumber = parseInt(req.query.page) || 10
+    const skip = (pageNmber - 1) * limitNumber
+    
+    const likedVideos = await Like.find({
+        user: req.user._id,
+        video:{
+            $exists : true
+        }
+    })
+    .populate({
+        path: "video",
+        populate:{ path: "owner", select:"fullName username avatar"}
+    })
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limitNumber)
+    .lean() // the lean function improves the performance by using plain js objects
+
+    const videos = likedVideos
+            .map(like => like.video)
+            .filter(video => video !== null)
+    
+    const total = await Like.countDocuments({
+        user: req.user._id,
+        video:{
+            $exists: true
+        }
+    })
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            {
+            total,
+            videos,
+            page: pageNmber,
+            totalPages: Math.ceil(total/limit)
+            },
+            "All the liked videos were fetched successfully"
+        )
+    )
+
 })
 
 export {
     toggleVideoLike,
     toggleTweetLike,
     toggleCommentLike,
+    getLikedVideos,
 }
