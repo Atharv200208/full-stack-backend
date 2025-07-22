@@ -1,1 +1,11 @@
 This is a full-stack backend application designed to support a social media platform with features similar to Twitter and YouTube. The backend is built with Node.js and Express, providing RESTful APIs for user authentication, video uploads, playlists, tweets, comments, likes, and subscriptions. The project follows a modular structure with separate controllers, models, and routes for each core feature, and includes middleware for authentication and file uploads. It also integrates with Cloudinary for media storage and uses a robust error handling and response system to ensure reliability and maintainability.
+
+
+
+
+
+
+
+
+This project was initially inspired by a tutorial by Hitesh Choudhary (https://www.youtube.com/@chaiaurcode).  
+The first 25% of the project was based on their guide, and the rest was developed independently
